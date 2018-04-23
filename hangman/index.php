@@ -4,7 +4,9 @@
         <style type="text/css">
         
             #won, #lost{
+                text-align: center;
                 display: none;
+                padding-bottom:20px;
             }
             
             #word, #letters{
@@ -22,6 +24,13 @@
             
             #word{
                 font-size: 1.8em;
+            }
+            .hint{
+                font-size: 0.6em !important;
+            }
+            .btn{
+                padding: 7px 7px !important;
+                margin: 0px 2px;
             }
             
         </style>
@@ -51,7 +60,7 @@
             </div>
             
             <div id="man">
-               <img src="img/stick_0.png" id="hangImg">
+               <img id="hangImg" src="./img/stick_0.png">
             </div>
         </div>
         <div id="won">
@@ -109,6 +118,7 @@
                     }
                 }else{
                     remainingGuesses -= 1;
+                    updateMan();
                 }
                 
                 if(remainingGuesses <= 0){
@@ -150,7 +160,7 @@
             }
             
             function updateMan(){
-                $("#hangImg").attr("src", "img/stick_" + (6-remainingGuesses) + ".png");
+                $("#hangImg").attr("src", "./img/stick_" + (6 - remainingGuesses) + ".png");
                 
             }
             
@@ -160,7 +170,7 @@
                 if(win){
                     $("#won").show();
                 }else{
-                    $("#lest").show();
+                    $("#lost").show();
                 }
             }
             
