@@ -9,6 +9,28 @@
                 padding-bottom:20px;
             }
             
+            .hint{
+              display: none;  
+            }
+            
+            .hideHintBtn{
+                display: none;
+                color: #fff;
+                background-color: #f0ad4e;
+                border-color: #eea236;
+                padding: 6px 12px;
+                margin-bottom: 0;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.42857143;
+                text-align: center;
+                white-space: nowrap;
+                vertical-align: middle;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
+            
+            
             #word, #letters{
                 padding: 20px 0px;
             }
@@ -54,6 +76,7 @@
             </header>
             
             <div id="word"></div>
+            <button class="hintBtn btn btn-warning">hint</button>
             <div id="letters">
                 <!--<input type="text" name="letterBox"/>-->
                 <!--<button id="letterBtn">Submit</button>-->
@@ -74,6 +97,7 @@
         
         
         <script language="javascript">
+            var hintShowing = false;
             var selectedWord = "";
             var selectedHint = "";
             var board = [];
@@ -113,9 +137,9 @@
                 if(positions.length > 0){
                     updateWord(positions, letter);
                     
-                    if(!board.includes("_")){
-                        endGame(true);
-                    }
+                if(!board.includes("_")){
+                    endGame(true);
+                }
                 }else{
                     remainingGuesses -= 1;
                     updateMan();
@@ -154,9 +178,21 @@
                 for(var letter of board){
                     document.getElementById("word").innerHTML += letter + " ";
                 }
-                
                 $("#word").append("<br />");
-                $("#word").append("<span class='hint'>Hint: " + selectedHint + "</span>");
+                $("#word").append("<span class='hint'>Hint: " + selectedHint + "</span><br>");
+                $("#word").append("<button class='hideHintBtn'>hide hint</button>")
+                if(!hintShowing){
+                    $(".hint").show();
+                    $(".hideHintBtn").show();
+                    $(".hintBtn").hide();
+                    hintShowing = true;
+                }if(hintShowing){
+                    $(".hint").hide();
+                    $(".hideHintBtn").hide();
+                    $(".hintBtn").show();
+                    hintShowing = false;
+                }
+                
             }
             
             function updateMan(){
@@ -193,6 +229,23 @@
                 
             $(".replayBtn").on("click", function(){
                 location.reload();
+            });
+            
+            $(".hintBtn").click(function(){
+                if(!hintShowing){
+                    $(".hint").show();
+                    $(".hideHintBtn").show();
+                    $(".hintBtn").hide();
+                    hintShowing = true;
+                }
+            });
+            $(".hideHintBtn").click(function(){
+                if(hintShowing){
+                    $(".hint").hide();
+                    $(".hideHintBtn").hide();
+                    $(".hintBtn").show();
+                    hintShowing = false;
+                }
             });
             
         </script>
